@@ -1,4 +1,5 @@
 <?php
+include_once "utils/exception/Forbidden.php";
 class BaseController
 {
     protected function getQueryStringParams()
@@ -31,5 +32,19 @@ class BaseController
             unset($_user["password"]);
         }
         $_SESSION['auth'] = $_user;
+    }
+
+    protected function onlyAdmin()
+    {
+        if (!$this->auth("is_admin")) {
+            throw new ForbiddenException('Forbidden');
+        }
+    }
+
+    protected function onlyAuth()
+    {
+        if (!array_key_exists("auth", $_SESSION)) {
+            throw new UnauthorizedException('Unauthorized');
+        }
     }
 }

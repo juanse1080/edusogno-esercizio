@@ -10,6 +10,7 @@ class EventController extends BaseController
 {
     public function addUsers(array $params)
     {
+        $this->onlyAdmin();
         $body = $this->getBody();
         $_eventModel = new Event();
         $event = $this->getAndValidateEvent($params['id']);
@@ -28,7 +29,7 @@ class EventController extends BaseController
         return $_eventModel->getAll()[0];
     }
 
-    public function getAndValidateEvent($_id)
+    private function getAndValidateEvent($_id)
     {
         $_eventModel = new Event();
         [$events, $is_success] = $_eventModel->getById($_id);
@@ -47,6 +48,7 @@ class EventController extends BaseController
 
     public function create()
     {
+        $this->onlyAdmin();
         $body = $this->getBody();
         $_eventModel = new Event();
         [$eventId] = $_eventModel->create($body);
@@ -61,6 +63,7 @@ class EventController extends BaseController
 
     public function update(array $params)
     {
+        $this->onlyAdmin();
         $this->getAndValidateEvent($params['id']);
 
         $body = $this->getBody();
@@ -76,6 +79,7 @@ class EventController extends BaseController
 
     public function delete(array $params)
     {
+        $this->onlyAdmin();
         $event = $this->getAndValidateEvent($params['id']);
 
         $_eventModel = new Event();

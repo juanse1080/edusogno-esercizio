@@ -12,7 +12,7 @@ include_once "utils/Email.php";
 
 class AuthController extends BaseController
 {
-    private function generateRandomString($length = 10)
+    public static function generateRandomString($length = 10)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -50,6 +50,7 @@ class AuthController extends BaseController
 
     public function joinEvent(array $params)
     {
+        $this->onlyAuth();
         $_eventModel = new Event();
         $event = $this->getAndValidateEvent($params['id']);
         [$eventId] = $_eventModel->addUsers([$this->auth("id")], $params['id']);
@@ -63,6 +64,7 @@ class AuthController extends BaseController
 
     public function findMyEvents()
     {
+        $this->onlyAuth();
         $_userModel = new User();
         return $_userModel->getEventsByUserId($this->auth("id"))[0];
     }
@@ -107,6 +109,7 @@ class AuthController extends BaseController
 
     public function updateProfile()
     {
+        $this->onlyAuth();
         $body = $this->getBody();
         $_userModel = new User();
 
@@ -119,6 +122,7 @@ class AuthController extends BaseController
 
     public function changePassword()
     {
+        $this->onlyAuth();
         $body = $this->getBody();
         $_userModel = new User();
         $user = $this->getAndValidateUser($this->auth("email"));
@@ -138,7 +142,7 @@ class AuthController extends BaseController
         $_userModel = new User();
         $user = $this->getAndValidateUser($body["email"]);
 
-        $code = $this->generateRandomString();
+        $code = AuthController::generateRandomString();
 
         $_userModel->update($user["id"], ["temp_reset_password_code" => $code]);
 
@@ -171,12 +175,14 @@ class AuthController extends BaseController
 
     public function logout()
     {
+        $this->onlyAuth();
         session_destroy();
         return ["message" => "logout"];
     }
 
     public function me()
     {
+        $this->onlyAuth();
         return $this->auth();
     }
 }

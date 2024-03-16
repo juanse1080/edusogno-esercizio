@@ -10,11 +10,12 @@ class UserController extends BaseController
 {
     public function index()
     {
+        $this->onlyAdmin();
         $_userModel = new User();
         return $_userModel->getAll()[0];
     }
 
-    public function getAndValidateUser($_id)
+    private function getAndValidateUser($_id)
     {
         $_userModel = new User();
         [$users, $is_success] = $_userModel->getById($_id);
@@ -28,11 +29,13 @@ class UserController extends BaseController
 
     public function find(array $params)
     {
+        $this->onlyAdmin();
         return $this->getAndValidateUser($params['id']);
     }
 
     public function create()
     {
+        $this->onlyAdmin();
         $body = $this->getBody();
         $_userModel = new User();
         [$users] = $_userModel->getByEmail($body['email']);
@@ -54,6 +57,7 @@ class UserController extends BaseController
 
     public function update(array $params)
     {
+        $this->onlyAdmin();
         $this->getAndValidateUser($params['id']);
 
         $body = $this->getBody();
@@ -69,6 +73,7 @@ class UserController extends BaseController
 
     public function delete(array $params)
     {
+        $this->onlyAdmin();
         $user = $this->getAndValidateUser($params['id']);
 
         $_userModel = new User();
