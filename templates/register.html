@@ -1,0 +1,43 @@
+<h1 class="title">Create your account</h1>
+<div id="response"></div>
+<div class="content">
+  <edusogno-card class="card-form">
+    <div class="card-form-content">
+      <edusogno-input
+        id="input-first-name"
+        name="first_name"
+        type="text"
+        label="Enter your first name"
+        placeholder="Mario"
+      ></edusogno-input>
+      <edusogno-input
+        id="input-last-name"
+        name="last_name"
+        type="text"
+        label="Enter your last name"
+        placeholder="Rossi"
+      ></edusogno-input>
+      <edusogno-input
+        id="input-email"
+        name="email"
+        type="text"
+        label="Enter your e-mail"
+        placeholder="name@example.com"
+      ></edusogno-input>
+      <edusogno-input
+        id="input-password"
+        name="password"
+        type="password"
+        label="Enter the password"
+        placeholder="*************"
+      ></edusogno-input>
+
+      <edusogno-button type="submit" onclick="submitRegisterForm()">
+        Register
+      </edusogno-button>
+      <p class="card-footer">
+        Do you already have an account? <a href="/login">Sign in</a>
+      </p>
+    </div>
+  </edusogno-card>
+</div>

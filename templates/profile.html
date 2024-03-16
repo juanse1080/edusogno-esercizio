@@ -1,0 +1,38 @@
+<h1 class="title">Profile</h1>
+<div id="response"></div>
+<div class="content">
+  <edusogno-card class="card-form">
+    <div class="card-form-content">
+      <edusogno-input
+        id="input-first-name"
+        name="first_name"
+        type="text"
+        label="First name"
+        placeholder="Mario"
+      ></edusogno-input>
+      <edusogno-input
+        id="input-last-name"
+        name="last_name"
+        type="text"
+        label="Last name"
+        placeholder="Rossi"
+      ></edusogno-input>
+      <edusogno-input
+        id="input-email"
+        name="email"
+        type="text"
+        label="E-mail"
+        placeholder="name@example.com"
+        disabled="true"
+      ></edusogno-input>
+
+      <edusogno-button type="submit" onclick="submitEditProfileForm()">
+        Update
+      </edusogno-button>
+      <p class="card-footer">
+        Do you want to change your password?
+        <a href="/change-password">Change password</a>
+      </p>
+    </div>
+  </edusogno-card>
+</div>
